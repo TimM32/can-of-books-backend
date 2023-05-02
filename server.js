@@ -17,12 +17,6 @@ mongoose.connect(
 .catch(e=>console.log(e));
 
 const Book = require('./models/book.js');
-
-
-
-
-
-
 const PORT = process.env.PORT || 5005;
 
 
@@ -41,6 +35,20 @@ async function getBooks(request, response, next){
     next(error);
   }
 }
+
+async function postBooks(request, response, next){
+  console.log('here we go.', request.body);
+  try {
+    let createBook = await Book.create(request.body);
+    console.log('result', results);
+    response.status(200).send(createBook);
+    
+  } catch (error) {
+    next{error};
+    
+  }
+}
+
 
 
 app.get('*', (request, response) => {
