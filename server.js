@@ -26,6 +26,13 @@ app.get('/', (request, response) => {
 
 
 app.get('/books', getBooks);
+app.post('/books', postBooks);
+app.delete('/books/:id', deleteBooks);
+
+
+
+
+
 
 async function getBooks(request, response, next){
   try {
@@ -44,12 +51,21 @@ async function postBooks(request, response, next){
     response.status(200).send(createBook);
     
   } catch (error) {
-    next{error};
+    next(error);
+    
     
   }
 }
 
-
+async function deleteBooks(request, response, next){
+  try {
+    let id = request.params.id;
+    await Book.findByIdAndDelete(id);
+    response.status(200).send('Book is deleted');
+  } catch (error) {
+    next(error);
+  }
+}
 
 app.get('*', (request, response) => {
   response.status(404).send('Not available');
