@@ -6,13 +6,13 @@ const mongoose = require('mongoose');
 const Book = require('./models/book');
 
 
-async function seed(){
-  
+async function seed() {
+
   await mongoose.connect(
     process.env.URL_DB
   )
-  .then(()=>console.log('Mongo DB is connected!'))
-  .catch(e=>console.log(e));
+    .then(() => console.log('Mongo DB is connected!'))
+    .catch(e => console.log(e));
 
   await Book.create([{
     title: 'Watchmen',
